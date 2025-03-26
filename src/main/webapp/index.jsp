@@ -17,24 +17,31 @@
   <input type="password" id="password-reg" name="password" required>
   <br>
   <button type="submit">Регистрация</button>
-  <h1>Выдача и возврат книг</h1>
-  <form id="bookForm" method="post">
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" required>
-    <br>
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <label for="bookId">ID книги:</label>
-    <input type="number" id="bookId" name="bookId" required>
-    <br>
 
-    <!-- Скрытое поле для определения действия -->
-    <input type="hidden" id="action" name="action" value="borrow">
-
-    <button type="submit" onclick="setAction('borrow')">Выдать книгу</button>
-    <button type="submit" onclick="setAction('return')">Вернуть книгу</button>
-  </form>
 </form>
+<h1>Выдача и возврат книг</h1>
+<form id="bookForm" method="post">
+  <label for="name">Имя:</label>
+  <input type="text" id="name" name="name" required>
+  <br>
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password" required>
+  <br>
+  <label for="bookId">ID книги:</label>
+  <input type="number" id="bookId" name="bookId" required>
+  <br>
+
+  <!-- Скрытое поле для определения действия -->
+  <input type="hidden" id="action" name="action" value="borrow">
+
+  <button type="submit" onclick="setAction('borrow')">Выдать книгу</button>
+  <button type="submit" onclick="setAction('return')">Вернуть книгу</button>
+</form>
+<script>
+  function setAction(action) {
+    form = document.getElementById("bookForm")
+    form.action = action;
+  }
+</script>
 </body>
 </html>
