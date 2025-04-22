@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.java_servlet.app.entities.User;
 import org.example.java_servlet.app.models.UserDataBase;
+import org.example.java_servlet.app.models.UserDataBaseSQLite;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,16 +20,16 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         PrintWriter out = resp.getWriter();
-        UserDataBase model = UserDataBase.getInstance();
+        UserDataBaseSQLite model = UserDataBaseSQLite.getInstance();
 
-        int id = UserDataBase.getNextId();
         String name = req.getParameter("name");
         String password = req.getParameter("password");
 
-        User user = new User(id, name, password);
+        User user = new User(0, name, password);
         model.addUser(user);
 
 
-        out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1></body></html>");
+        out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1>\n" +
+                "    <button onclick=\"history.back()\">Назад</button></body></html>");
     }
 }

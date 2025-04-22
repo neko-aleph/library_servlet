@@ -32,5 +32,7 @@
         <br>
         <button type="submit">Добавить</button>
     </form>
+
+    <button onclick="history.back()">Назад</button>
 </body>
 </html>

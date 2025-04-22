@@ -7,12 +7,16 @@ public class Book {
     private boolean isBorrowed;
     private Integer borrowerId;
 
-    public Book(int id, String title, String author) {
+    public Book(int id, String title, String author, boolean isBorrowed, Integer borrowerId) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.isBorrowed = false;
-        this.borrowerId = null;
+        this.isBorrowed = isBorrowed;
+        this.borrowerId = borrowerId;
+    }
+
+    public Book(int id, String title, String author) {
+        this(id, title, author, false, null);
     }
 
     public int getId() {

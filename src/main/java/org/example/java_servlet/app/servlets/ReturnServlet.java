@@ -7,7 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.java_servlet.app.entities.User;
 import org.example.java_servlet.app.models.BookDataBase;
+import org.example.java_servlet.app.models.BookDataBaseSQLite;
 import org.example.java_servlet.app.models.UserDataBase;
+import org.example.java_servlet.app.models.UserDataBaseSQLite;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,8 +18,8 @@ import java.io.PrintWriter;
 public class ReturnServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDataBase users = UserDataBase.getInstance();
-        BookDataBase books = BookDataBase.getInstance();
+        UserDataBaseSQLite users = UserDataBaseSQLite.getInstance();
+        BookDataBaseSQLite books = BookDataBaseSQLite.getInstance();
 
         String name = req.getParameter("name");
         String password = req.getParameter("password");
@@ -27,10 +29,12 @@ public class ReturnServlet extends HttpServlet {
 
         PrintWriter out = resp.getWriter();
         if (user == null) {
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Неверное имя или пароль</h1></body></html>");
+            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Неверное имя или пароль</h1>\n" +
+                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
         } else {
             books.setBookUnborrowed(bookId, user.getId());
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Книга успешно возвращена</h1></body></html>");
+            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Книга успешно возвращена</h1>\n" +
+                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
         }
     }
 }
