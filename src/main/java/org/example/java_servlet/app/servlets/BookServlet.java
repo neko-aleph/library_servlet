@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.java_servlet.app.entities.Book;
 import org.example.java_servlet.app.models.BookDataBase;
 import org.example.java_servlet.app.models.BookDataBaseSQLite;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,8 +21,12 @@ public class BookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
         List<Book> books = model.getAllBooks();
-        req.setAttribute("booksList", books);
-        req.getRequestDispatcher("view/books.jsp").forward(req, resp);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        String json = new Gson().toJson(books);
+        resp.getWriter().print(json);
     }
 
     @Override

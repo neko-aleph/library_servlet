@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Библиотека</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="header">
+            <h1>Библиотека</h1>
+            <button id="logout" onclick="logout()">Выйти</button>
+        </div>
+        <div id="content">
+            <div id="my">
+                <h2>Мои книги</h2>
+                <table id="my-table">
+                    <tr>
+                        <th>Название</th>
+                        <th>Автор</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>ТЕСТ</td>
+                        <td>ТЕСТ</td>
+                        <td><button>Вернуть</button></td>
+                    </tr>
+                    <tr>
+                        <td>ТЕСТ</td>
+                        <td>ТЕСТ</td>
+                        <td><button>Вернуть</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="catalog">
+                <h2>Каталог</h2>
+                <table id="catalog-table">
+                    <tr>
+                        <th>Название</th>
+                        <th>Автор</th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <form action="http://localhost:8081/java_servlet_war/book" method="post">
+            <input type="text" id="title" name="title" required placeholder="Название">
+            <input type="text" id="author" name="author" required placeholder="Автор">
+            <button type="submit">Добавить</button>
+        </form>
+        
+        <script src="books.js"></script>
+    </body>
+</html>
