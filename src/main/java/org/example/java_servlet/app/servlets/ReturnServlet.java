@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "returnServlet", value = "/return")
 public class ReturnServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UserDataBase users = UserDataBase.getInstance();
         BookDataBase books = BookDataBase.getInstance();
 

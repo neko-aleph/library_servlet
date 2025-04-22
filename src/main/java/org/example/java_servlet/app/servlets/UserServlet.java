@@ -10,11 +10,15 @@ import org.example.java_servlet.app.models.UserDataBase;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 @WebServlet(name = "userServlet", value = "/user")
 public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        PrintWriter out = resp.getWriter();
         UserDataBase model = UserDataBase.getInstance();
 
         int id = UserDataBase.getNextId();
@@ -24,7 +28,7 @@ public class UserServlet extends HttpServlet {
         User user = new User(id, name, password);
         model.addUser(user);
 
-        PrintWriter out = resp.getWriter();
+
         out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1></body></html>");
     }
 }
