@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.java_servlet.app.entities.Book;
 import org.example.java_servlet.app.models.BookDataBase;
 import org.example.java_servlet.app.models.BookDataBaseSQLite;
@@ -13,17 +14,27 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "bookServlet", value = "/book")
 public class BookServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
-        List<Book> books = model.getAllBooks();
+        HttpSession session = req.getSession(false);
+        int userId = (session != null) ? (Integer) session.getAttribute("id") : -1;
 
-        req.setAttribute("booksList", books);
-        req.getRequestDispatcher("view/books.jsp").forward(req, resp);
+        if (userId != -1) {
+            BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
+            List<Book> books = model.getAllBooks();
+            List<Book> userBooks = model.getUserBooks(userId);
+            req.setAttribute("booksList", books);
+            req.setAttribute("userBooksList", userBooks);
+            req.getRequestDispatcher("view/books.jsp").forward(req, resp);
+        } else {
+            resp.setContentType("text/html;charset=UTF-8");
+            resp.getWriter().println("<h1>Нет доступа</h1><button onclick=\"history.back()\">Назад</button>");
+        }
     }
 
     @Override

@@ -24,7 +24,23 @@ public class BookDataBaseSQLite {
     public List<Book> getAllBooks(){
         try {
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from book");
+            ResultSet rs = statement.executeQuery("select * from book where isBorrowed = 0");
+            List<Book> books = new ArrayList<>();
+            while (rs.next()) {
+                Book book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("isBorrowed"), rs.getInt("borrowerId"));
+                books.add(book);
+            }
+            return books;
+        } catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public List<Book> getUserBooks(int userId){
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select * from book where isBorrowed = 1 and borrowerId = " + userId);
             List<Book> books = new ArrayList<>();
             while (rs.next()) {
                 Book book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("isBorrowed"), rs.getInt("borrowerId"));
@@ -59,7 +75,7 @@ public class BookDataBaseSQLite {
     }
 
     public boolean setBookBorrowed(int id, int borrowerId) {
-        String sql = "UPDATE book SET isBorrowed = true , borrowerId = ? WHERE id = ?";
+        String sql = "UPDATE book SET isBorrowed = 1 , borrowerId = ? WHERE id = ? and isBorrowed = 0";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, borrowerId);
@@ -74,10 +90,11 @@ public class BookDataBaseSQLite {
     }
 
     public boolean setBookUnborrowed(int id, int borrowerId) {
-        String sql = "UPDATE book SET isBorrowed = false , borrowerId = null WHERE id = ?";
+        String sql = "UPDATE book SET isBorrowed = 0 , borrowerId = null WHERE id = ? and isBorrowed = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, borrowerId);
 
             preparedStatement.executeUpdate();
             return true;

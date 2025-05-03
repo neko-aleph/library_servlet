@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.java_servlet.app.entities.User;
 import org.example.java_servlet.app.models.BookDataBase;
 import org.example.java_servlet.app.models.BookDataBaseSQLite;
@@ -18,23 +19,22 @@ import java.io.PrintWriter;
 public class ReturnServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UserDataBaseSQLite users = UserDataBaseSQLite.getInstance();
-        BookDataBaseSQLite books = BookDataBaseSQLite.getInstance();
+        HttpSession session = req.getSession(false);
+        int userId = (session != null) ? (Integer) session.getAttribute("id") : -1;
 
-        String name = req.getParameter("name");
-        String password = req.getParameter("password");
-        int bookId = Integer.parseInt(req.getParameter("bookId"));
-
-        User user = users.CheckPassword(name, password);
-
-        PrintWriter out = resp.getWriter();
-        if (user == null) {
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Неверное имя или пароль</h1>\n" +
-                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
+        if (userId != -1) {
+            BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
+            int bookId = Integer.parseInt(req.getParameter("bookId"));
+            boolean success = model.setBookUnborrowed(bookId, userId);
+            if (success) {
+                resp.getWriter().println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Книга успешно возвращена</h1>\n" +
+                        "    <button onclick=\"location.href='book'\">Назад</button></body></html>");
+            } else {
+                resp.getWriter().println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Ошибка</h1>\n" +
+                        "    <button onclick=\"location.href='book'\">Назад</button></body></html>");
+            }
         } else {
-            books.setBookUnborrowed(bookId, user.getId());
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Книга успешно возвращена</h1>\n" +
-                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
+            resp.getWriter().println("<h1>Нет доступа</h1><button onclick=\"history.back()\">Назад</button>");
         }
     }
 }

@@ -102,16 +102,17 @@
     </div>
     <div id="content">
     <div id="first">
-    <h2>Список</h2>
+    <h2>Каталог</h2>
     <%
         ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("booksList");
         if (books != null) {
     %>
     <table>
         <tr>
-            <th id="tl">id</th>
+            <th class="tl">id</th>
             <th>название</th>
-            <th id="tr">автор</th>
+            <th>автор</th>
+            <th class="tr">действие</th>
         </tr>
     <%
             for (Book book : books) {
@@ -120,6 +121,12 @@
             <td><%= book.getId() %></td>
             <td><%= book.getTitle() %></td>
             <td><%= book.getAuthor() %></td>
+            <td>
+                <form action="borrow" method="post" style="margin:0;">
+                    <input type="hidden" name="bookId" value="<%= book.getId() %>" />
+                    <button type="submit">Взять</button>
+                </form>
+            </td>
         </tr>
     <%
         }
@@ -133,34 +140,50 @@
     </div>
 
     <div id="second">
+        <h2>Мои книги</h2>
+        <%
+            ArrayList<Book> userBooks = (ArrayList<Book>) request.getAttribute("userBooksList");
+            if (books != null) {
+        %>
+        <table>
+            <tr>
+                <th class="tl">id</th>
+                <th>название</th>
+                <th>автор</th>
+                <th class="tr">действие</th>
+            </tr>
+            <%
+                for (Book book : userBooks) {
+            %>
+            <tr>
+                <td><%= book.getId() %></td>
+                <td><%= book.getTitle() %></td>
+                <td><%= book.getAuthor() %></td>
+                <td>
+                    <form action="return" method="post" style="margin:0;">
+                        <input type="hidden" name="bookId" value="<%= book.getId() %>" />
+                        <button type="submit">Вернуть</button>
+                    </form>
+                </td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+        <%
+        } else {
+        %>
+        <p>Книг нет.</p>
+        <% } %>
+    </div>
+
+    <div id="third">
     <h2>Добавить книгу</h2>
     <form action="book" method="post">
         <input type="text" id="title" name="title" placeholder="Название" required>
         <input type="text" id="author" name="author" placeholder="Автор" required>
         <button type="submit">Добавить</button>
     </form>
-    </div>
-
-    <div id="third">
-    </form>
-    <h2>Выдача и возврат книг</h2>
-     <form id="bookForm" method="post">
-       <input type="text" id="name" name="name" placeholder="Имя" required>
-       <input type="password" id="password" name="password"  placeholder="Пароль" required>
-       <input type="number" id="bookId" name="bookId"  placeholder="ID книги" required>
-
-       <!-- Скрытое поле для определения действия -->
-       <input type="hidden" id="action" name="action" value="borrow">
-
-       <button type="submit" onclick="setAction('borrow')">Выдать книгу</button>
-       <button type="submit" onclick="setAction('return')">Вернуть книгу</button>
-     </form>
-     <script>
-        function setAction(action) {
-            form = document.getElementById("bookForm")
-            form.action = action;
-        }
-      </script>
     </div>
 
     </div>
