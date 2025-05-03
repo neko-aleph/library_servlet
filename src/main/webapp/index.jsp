@@ -2,46 +2,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>JSP - Hello World</title>
+  <title>Библиотека</title>
+  <style>
+    body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                font-family: sans-serif;
+            }
+            input {
+                height: 40px;
+                width: 200px;
+                border: none;
+                outline: none;
+                background-color: #d9d9d9;
+                padding-left: 12px;
+                box-sizing: border-box;
+                border-radius: 8px;
+            }
+            button {
+                height: 40px;
+                width: 200px;
+                border: none;
+                background-color: blue;
+                color: white;
+                font-weight: bold;
+                border-radius: 12px;
+            }
+            button:hover {
+                cursor: pointer;
+                background-color: #2222ff;
+            }
+            button:active {
+                background-color: #4444ff;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+            }
+            h2 {
+                margin-top: 100px;
+            }
+  </style>
 </head>
 <body>
-<h1><%= "Hello World!" %></h1>
-<br/>
-<a href="book">Список книг</a>
 <h2>Регистрация</h2>
 <form action="user" method="post">
-  <label for="name-reg">Имя:</label>
-  <input type="text" id="name-reg" name="name" required>
-  <br>
-  <label for="password-reg">Пароль:</label>
-  <input type="password" id="password-reg" name="password" required>
-  <br>
+  <input type="text" id="name-reg" name="name" placeholder="Имя" required>
+  <input type="password" id="password-reg" name="password" placeholder="Пароль" required>
   <button type="submit">Регистрация</button>
-
-</form>
-<h1>Выдача и возврат книг</h1>
-  <form id="bookForm" method="post">
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" required>
-    <br>
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <label for="bookId">ID книги:</label>
-    <input type="number" id="bookId" name="bookId" required>
-    <br>
-
-    <!-- Скрытое поле для определения действия -->
-    <input type="hidden" id="action" name="action" value="borrow">
-
-    <button type="submit" onclick="setAction('borrow')">Выдать книгу</button>
-    <button type="submit" onclick="setAction('return')">Вернуть книгу</button>
-  </form>
-  <script>
-    function setAction(action) {
-        form = document.getElementById("bookForm")
-        form.action = action;
-    }
-  </script>
+  <a href="book">Список книг</a>
 </body>
 </html>

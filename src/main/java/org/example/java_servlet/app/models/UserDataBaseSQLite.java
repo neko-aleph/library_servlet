@@ -64,7 +64,7 @@ public class UserDataBaseSQLite {
             preparedStatement.setString(2, password);
 
             ResultSet rs = preparedStatement.executeQuery();
-            boolean exists = rs.first();
+            boolean exists = rs.next();
             if (exists) {
                 User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
                 return user;

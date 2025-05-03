@@ -22,11 +22,8 @@ public class BookServlet extends HttpServlet {
         BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
         List<Book> books = model.getAllBooks();
 
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
-
-        String json = new Gson().toJson(books);
-        resp.getWriter().print(json);
+        req.setAttribute("booksList", books);
+        req.getRequestDispatcher("view/books.jsp").forward(req, resp);
     }
 
     @Override
