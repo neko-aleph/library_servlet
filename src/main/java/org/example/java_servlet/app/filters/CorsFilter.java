@@ -1,4 +1,4 @@
-package org.example.java_servlet.app;
+package org.example.java_servlet.app.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
