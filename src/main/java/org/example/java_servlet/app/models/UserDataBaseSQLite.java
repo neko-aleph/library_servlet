@@ -26,19 +26,31 @@ public class UserDataBaseSQLite {
     }
 
     public boolean addUser(User user) {
-        String sql = "INSERT INTO user (name, password) Values (?, ?)";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getPassword());
+        String checkSql = "SELECT COUNT(*) FROM user WHERE name = ?";
+        String insertSql = "INSERT INTO user (name, password) VALUES (?, ?)";
 
-            preparedStatement.executeUpdate();
+        try {
+            PreparedStatement checkStmt = connection.prepareStatement(checkSql);
+            checkStmt.setString(1, user.getName());
+            ResultSet resultSet = checkStmt.executeQuery();
+
+            if (resultSet.next() && resultSet.getInt(1) > 0) {
+                System.out.println("User with this name already exists.");
+                return false;
+            }
+
+            PreparedStatement insertStmt = connection.prepareStatement(insertSql);
+            insertStmt.setString(1, user.getName());
+            insertStmt.setString(2, user.getPassword());
+            insertStmt.executeUpdate();
+
             return true;
         } catch (Exception e) {
             System.out.println(e);
             return false;
         }
     }
+
 
     public List<User> getAllUsers() {
         try {

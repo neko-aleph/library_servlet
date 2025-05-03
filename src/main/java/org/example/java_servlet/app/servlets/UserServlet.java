@@ -26,10 +26,14 @@ public class UserServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         User user = new User(0, name, password);
-        model.addUser(user);
+        boolean success = model.addUser(user);
 
-
-        out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1>\n" +
-                "    <button onclick=\"history.back()\">Назад</button></body></html>");
+        if (success) {
+            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1>\n" +
+                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
+        } else {
+            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Ошибка при регистрации</h1>\n" +
+                    "    <button onclick=\"history.back()\">Назад</button></body></html>");
+        }
     }
 }
