@@ -98,7 +98,7 @@
 <body>
     <div id="header">
         <h1>Список книг</h1>
-        <button onclick="history.back()" id="back">Назад</button>
+        <button onclick="location.href='logout'" id="back">Выйти</button>
     </div>
     <div id="content">
     <div id="first">

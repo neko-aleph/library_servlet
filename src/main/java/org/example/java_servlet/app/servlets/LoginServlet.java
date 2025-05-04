@@ -12,21 +12,21 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String username = request.getParameter("name");
-        String password = request.getParameter("password");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter("name");
+        String password = req.getParameter("password");
 
         UserDataBaseSQLite model = UserDataBaseSQLite.getInstance();
         User user = model.CheckPassword(username, password);
 
         if (user != null) {
-            HttpSession session = request.getSession();
+            HttpSession session = req.getSession();
             session.setAttribute("user", username);
             session.setAttribute("id", user.getId());
 
-            response.sendRedirect("book");
+            resp.sendRedirect("book");
         } else {
-            response.sendRedirect("index.jsp");
+            resp.sendRedirect("index.jsp");
         }
     }
 }
