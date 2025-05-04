@@ -27,7 +27,7 @@ public class UserDataBaseSQLite {
 
     public boolean addUser(User user) {
         String checkSql = "SELECT COUNT(*) FROM user WHERE name = ?";
-        String insertSql = "INSERT INTO user (name, password) VALUES (?, ?)";
+        String insertSql = "INSERT INTO user (name, password, admin) VALUES (?, ?, 0)";
 
         try {
             PreparedStatement checkStmt = connection.prepareStatement(checkSql);
@@ -58,7 +58,7 @@ public class UserDataBaseSQLite {
             ResultSet rs = statement.executeQuery("select * from user");
             List<User> users = new ArrayList<>();
             while (rs.next()) {
-                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
+                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getBoolean("admin"));
                 users.add(user);
             }
             return users;
@@ -78,7 +78,7 @@ public class UserDataBaseSQLite {
             ResultSet rs = preparedStatement.executeQuery();
             boolean exists = rs.next();
             if (exists) {
-                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
+                User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getBoolean("admin"));
                 return user;
             } else {
                 return null;

@@ -19,7 +19,7 @@ public class BD {
 
             Statement statement = con.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, author TEXT, isBorrowed INTEGER, borrowerId INTEGER);");
-            statement.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT);");
+            statement.execute("CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT, admin INTEGER);");
 
             return con;
         } catch (Exception e) {

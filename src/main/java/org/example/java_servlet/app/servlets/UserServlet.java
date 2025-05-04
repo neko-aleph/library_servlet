@@ -25,7 +25,7 @@ public class UserServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
 
-        User user = new User(0, name, password);
+        User user = new User(0, name, password, false);
         boolean success = model.addUser(user);
 
         if (success) {

@@ -23,6 +23,7 @@ public class BookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         int userId = (session != null) ? (Integer) session.getAttribute("id") : -1;
+        boolean admin = (session != null) ? (Boolean) session.getAttribute("admin") : false;
 
         if (userId != -1) {
             BookDataBaseSQLite model = BookDataBaseSQLite.getInstance();
@@ -30,6 +31,7 @@ public class BookServlet extends HttpServlet {
             List<Book> userBooks = model.getUserBooks(userId);
             req.setAttribute("booksList", books);
             req.setAttribute("userBooksList", userBooks);
+            req.setAttribute("admin", admin);
             req.getRequestDispatcher("view/books.jsp").forward(req, resp);
         } else {
             resp.setContentType("text/html;charset=UTF-8");

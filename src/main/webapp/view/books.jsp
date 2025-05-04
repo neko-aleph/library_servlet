@@ -177,6 +177,10 @@
         <% } %>
     </div>
 
+    <%
+        boolean isAdmin = (boolean) request.getAttribute("admin");
+        if (isAdmin) {
+    %>
     <div id="third">
     <h2>Добавить книгу</h2>
     <form action="book" method="post">
@@ -185,6 +189,9 @@
         <button type="submit">Добавить</button>
     </form>
     </div>
+    <%
+        }
+    %>
 
     </div>
 </body>
