@@ -14,8 +14,7 @@ public class BD {
 
         try {
             Class.forName("org.sqlite.JDBC");
-//            con = DriverManager.getConnection("jdbc:sqlite:C:/Program Files/Apache Software Foundation/Tomcat 11.0/webapps/library_app/WEB-INF/sample.db");
-            con = DriverManager.getConnection("jdbc:sqlite:C:/Users/pc/IdeaProjects/java_servlet/src/main/webapp/WEB-INF/sample.db");
+            con = DriverManager.getConnection("jdbc:sqlite:/Users/pavel/Documents/apache-tomcat-11.0.6/webapps/java_servlet/WEB-INF/sample.db");
 
             Statement statement = con.createStatement();
             statement.execute("CREATE TABLE IF NOT EXISTS book (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, author TEXT, isBorrowed INTEGER, borrowerId INTEGER);");
