@@ -93,7 +93,29 @@
             align-content: center;
             gap: 400px;
         }
+
+        @media (max-width: 768px) {
+            #header {
+                margin-top: 20px;
+                gap: 10px;
+                flex-direction: column;
+            }
+            #content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            th, td {
+                min-width: 40px;
+                font-size: 10px;
+            }
+            .table-button {
+                width: 100px;
+                height: 20px;
+                border-radius: 6px;
+            }
+        }
     </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
     <div id="header">
@@ -124,7 +146,7 @@
             <td>
                 <form action="borrow" method="post" style="margin:0;">
                     <input type="hidden" name="bookId" value="<%= book.getId() %>" />
-                    <button type="submit">Взять</button>
+                    <button type="submit" class="table-button">Взять</button>
                 </form>
             </td>
         </tr>
@@ -162,7 +184,7 @@
                 <td>
                     <form action="return" method="post" style="margin:0;">
                         <input type="hidden" name="bookId" value="<%= book.getId() %>" />
-                        <button type="submit">Вернуть</button>
+                        <button type="submit" class="table-button">Вернуть</button>
                     </form>
                 </td>
             </tr>
