@@ -14,6 +14,7 @@
             align-content: center;
             align-items: center;
             font-family: sans-serif;
+            background: #ffffff;
         }
         input {
             height: 40px;

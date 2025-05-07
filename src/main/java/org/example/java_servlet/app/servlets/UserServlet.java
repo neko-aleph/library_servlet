@@ -29,10 +29,58 @@ public class UserServlet extends HttpServlet {
         boolean success = model.addUser(user);
 
         if (success) {
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1>\n" +
+            out.println("<style>body {\n" +
+                    "            display: flex;\n" +
+                    "            flex-direction: column;\n" +
+                    "            justify-content: center;\n" +
+                    "            align-content: center;\n" +
+                    "            align-items: center;\n" +
+                    "            font-family: sans-serif;\n" +
+                    "            background: #ffffff;\n" +
+                    "        }" +
+                    "button {\n" +
+                    "            height: 40px;\n" +
+                    "            width: 200px;\n" +
+                    "            border: none;\n" +
+                    "            background-color: blue;\n" +
+                    "            color: white;\n" +
+                    "            font-weight: bold;\n" +
+                    "            border-radius: 12px;\n" +
+                    "        }\n" +
+                    "        button:hover {\n" +
+                    "            cursor: pointer;\n" +
+                    "            background-color: #2222ff;\n" +
+                    "        }\n" +
+                    "        button:active {\n" +
+                    "            background-color: #4444ff;\n" +
+                    "        }</style><html><head><meta charset=\"UTF-8\"></head><body><h1>Вы успешно зарегистрированны</h1>\n" +
                     "    <button onclick=\"history.back()\">Назад</button></body></html>");
         } else {
-            out.println("<html><head><meta charset=\"UTF-8\"></head><body><h1>Ошибка при регистрации</h1>\n" +
+            out.println("<style>body {\n" +
+                    "            display: flex;\n" +
+                    "            flex-direction: column;\n" +
+                    "            justify-content: center;\n" +
+                    "            align-content: center;\n" +
+                    "            align-items: center;\n" +
+                    "            font-family: sans-serif;\n" +
+                    "            background: #ffffff;\n" +
+                    "        }" +
+                    "button {\n" +
+                    "            height: 40px;\n" +
+                    "            width: 200px;\n" +
+                    "            border: none;\n" +
+                    "            background-color: blue;\n" +
+                    "            color: white;\n" +
+                    "            font-weight: bold;\n" +
+                    "            border-radius: 12px;\n" +
+                    "        }\n" +
+                    "        button:hover {\n" +
+                    "            cursor: pointer;\n" +
+                    "            background-color: #2222ff;\n" +
+                    "        }\n" +
+                    "        button:active {\n" +
+                    "            background-color: #4444ff;\n" +
+                    "        }</style><html><head><meta charset=\"UTF-8\"></head><body><h1>Ошибка при регистрации</h1>\n" +
                     "    <button onclick=\"history.back()\">Назад</button></body></html>");
         }
     }
