@@ -90,7 +90,7 @@ public class UserDataBaseSQLite {
     }
 
     public boolean deleteUser(int id) {
-        String sql = "DELETE user WHERE id = ?";
+        String sql = "DELETE FROM user WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);

@@ -188,6 +188,11 @@
         <input type="text" id="author" name="author" placeholder="Автор" required>
         <button type="submit">Добавить</button>
     </form>
+    <h2>Удалить книгу</h2>
+    <form action="deleteBook" method="post">
+        <input type="number" name="id" placeholder="id" required>
+        <button type="submit">Удалить</button>
+    </form>
     </div>
     <%
         }

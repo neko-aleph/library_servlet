@@ -105,7 +105,7 @@ public class BookDataBaseSQLite {
     }
 
     public boolean deleteBook(int id) {
-        String sql = "DELETE book WHERE id = ?";
+        String sql = "DELETE FROM book WHERE id = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
