@@ -117,4 +117,21 @@ public class BookDataBaseSQLite {
             return false;
         }
     }
+
+    public boolean updateBook(int id, String title, String author) {
+        String sql = "UPDATE book SET title = ?, author = ? WHERE id = ?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, title);
+            preparedStatement.setString(2, author);
+            preparedStatement.setInt(3, id);
+
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
 }

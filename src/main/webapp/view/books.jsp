@@ -216,6 +216,13 @@
         <input type="number" name="id" placeholder="id" required>
         <button type="submit">Удалить</button>
     </form>
+    <h2>Обновить книгу</h2>
+    <form action="updateBook" method="post">
+        <input type="number" name="id" placeholder="id" required>
+        <input type="text" id="title" name="title" placeholder="Название" required>
+        <input type="text" id="author" name="author" placeholder="Автор" required>
+        <button type="submit">Обновить</button>
+    </form>
     </div>
     <%
         }
